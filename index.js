@@ -96,6 +96,32 @@ app.get("/product",async(req,res)=>{
     res.send(JSON.stringify(data))
 })
 
+
+//api new show
+
+const schemaShows = mongoose.Schema({
+    name : String,
+    image : String,
+    description: String
+});
+const showsModel = mongoose.model("shows",schemaShows)
+
+
+//save show in db
+app.post("/uploadshow",async(req,res)=>{
+    console.log(req.body)
+   const data = await showsModel(req.body)
+   const datasave = await data.save()
+    res.send({message : "Event Uploaded"})
+})
+
+//
+app.get("/shows",async(req,res)=>{
+    const data = await showsModel.find({})
+    res.send(JSON.stringify(data))
+})
+
+
 //contact api
 const schemaContact = mongoose.Schema({
     name : String,
